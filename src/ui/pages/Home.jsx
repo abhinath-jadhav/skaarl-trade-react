@@ -3,7 +3,7 @@ import Container from "../Components/Container";
 
 const Home = () => {
   return (
-    <div className="hidden w-full md:block bg-slate-100 dark:bg-[#151e28] border border-slate-300 dark:border-slate-500">
+    <div className="hidden h-full w-full md:block bg-white dark:bg-black border p-2 border-slate-300 dark:border-slate-500">
       <HomeBody />
     </div>
   );

@@ -145,9 +145,9 @@ const CandlestickChart = ({ candles, name }) => {
   }
 
   return (
-    <div className="mx-auto pb-8 flex justify-center">
+    <div className="w-full h-full mx-auto flex justify-center">
       {/* Display the open, high, low, and close values at the top */}
-      <div className="">
+      <div className="w-full h-full">
         <div
           className={`mb-2 font-medium text-sm pl-4 w-fit py-2 bg-white dark:bg-black `}
         >
@@ -200,7 +200,7 @@ const CandlestickChart = ({ candles, name }) => {
         </div>
         <div
           ref={chartContainerRef}
-          className="min-w-full overflow-hidden bg-slate-100 dark:bg-[#151e28] "
+          className="overflow-hidden w-full h-full bg-slate-100 dark:bg-[#151e28] border rounded-md border-slate-300 dark:border-slate-500"
         />
       </div>
     </div>

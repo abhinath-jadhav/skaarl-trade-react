@@ -18,7 +18,6 @@ const Watchlist = () => {
 
       const fetchChangedData = async () => {
         const response = await getWatchlistChanged();
-        console.log(response);
 
         if (response != null && response.status == 200) {
           setWatchlist(response.data);
@@ -36,18 +35,6 @@ const Watchlist = () => {
         {watchlist.length > 0 ? (
           watchlist.map((stock) => (
             <div key={stock.id}>
-              <WatchListCard {...stock} />
-              <WatchListCard {...stock} />
-              <WatchListCard {...stock} />
-
-              <WatchListCard {...stock} />
-              <WatchListCard {...stock} />
-              <WatchListCard {...stock} />
-              <WatchListCard {...stock} />
-              <WatchListCard {...stock} />
-              <WatchListCard {...stock} />
-              <WatchListCard {...stock} />
-              <WatchListCard {...stock} />
               <WatchListCard {...stock} />
             </div>
           ))

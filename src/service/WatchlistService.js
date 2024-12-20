@@ -16,4 +16,12 @@ const getWatchlistChanged = async () => {
   return null;
 };
 
-export { getWatchlist, getWatchlistChanged };
+const addToWatchList = async (symbol) => {
+  const response = await axiosSkaarl.post("/watchlist", { symbol: symbol });
+  if (response.status == 200) {
+    return response.data;
+  }
+  return null;
+};
+
+export { getWatchlist, getWatchlistChanged, addToWatchList };
