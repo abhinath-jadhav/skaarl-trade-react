@@ -24,4 +24,17 @@ const addToWatchList = async (symbol) => {
   return null;
 };
 
-export { getWatchlist, getWatchlistChanged, addToWatchList };
+const deleteFromWatchlist = async (id) => {
+  const response = await axiosSkaarl.delete("/watchlist/" + id);
+  if (response.status == 200) {
+    return response.data;
+  }
+  return null;
+};
+
+export {
+  getWatchlist,
+  getWatchlistChanged,
+  addToWatchList,
+  deleteFromWatchlist,
+};

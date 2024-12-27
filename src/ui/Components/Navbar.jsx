@@ -3,8 +3,12 @@ import ThemeToggle from "./ThmeToggle";
 import logo from "../../assets/logo.png";
 import { useEffect, useState } from "react";
 import { authorise } from "../../service/Authservice";
+import { useDispatch } from "react-redux";
+
 const Navbar = () => {
   const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const fetchUser = async () => {
       const userData = await authorise();
@@ -18,6 +22,7 @@ const Navbar = () => {
 
     fetchUser();
   }, []);
+
   return (
     <div className="h-full">
       <div className="flex h-[25%] justify-center gap-2 md:gap-5 text-[10px] md:text-sm py-1 md:py-0">

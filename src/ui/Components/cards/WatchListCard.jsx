@@ -3,9 +3,12 @@ import { changeStock } from "../../../store/stockSlice";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HandleUserChoice from "../buttons/HandleUserChoice";
+import OrderModal from "../modal/OrderModal";
+import { placeOrder } from "../../../service/OrderService";
 
 /* eslint-disable react/prop-types */
 const WatchListCard = ({
+  id,
   symbol,
   price,
   dateAdded,
@@ -13,8 +16,8 @@ const WatchListCard = ({
   change,
   percentageChange,
   instrumentKeyUpStox,
-  instrumentKeyFivePaisa,
   instrumentName,
+  handleRefresh,
 }) => {
   const [pos, setPos] = useState(true);
   let date = dateAdded.substring(8, 10);
@@ -22,11 +25,9 @@ const WatchListCard = ({
   const curr = useSelector((state) => state.currentPriceSlice);
   const data = curr[instrumentKeyUpStox];
   const [show, setShow] = useState(false);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [action, setAction] = useState("");
   const [socketStockData, setSocketStockData] = useState(null);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (data != undefined && data != null) {
@@ -42,6 +43,12 @@ const WatchListCard = ({
       setPos(currentPrice >= price);
     }
   }, [data, socketStockData, pos, price, currentPrice]);
+
+  const handleOrder = (action) => {
+    setShow(false);
+    setAction(action);
+    setIsModalOpen(true);
+  };
 
   return (
     <div
@@ -63,8 +70,14 @@ const WatchListCard = ({
       </div>
       <div className="w-1/4 text-right gap-1">
         {show ? (
-          <div className="absolute top-1/4  right-2 bg-white p-1 px-2 border-red-500">
-            <HandleUserChoice instrumentKeyUpStox={instrumentKeyUpStox} />{" "}
+          <div className="absolute top-1/4  right-2 bg-white p-1 px-2 border-red-500 dark:bg-black">
+            <HandleUserChoice
+              instrumentKeyUpStox={instrumentKeyUpStox}
+              symbol={symbol}
+              id={id}
+              handleRefresh={handleRefresh}
+              handleOrder={handleOrder}
+            />{" "}
           </div>
         ) : (
           <>
@@ -80,6 +93,15 @@ const WatchListCard = ({
           </>
         )}
       </div>
+      {isModalOpen && (
+        <OrderModal
+          symbol={symbol}
+          setIsModalOpen={setIsModalOpen}
+          type={action}
+          price={230}
+          stoploss={230 * 0.05}
+        />
+      )}
     </div>
   );
 };

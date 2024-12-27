@@ -5,37 +5,39 @@ import {
 } from "../../../service/WatchlistService.js";
 import WatchListCard from "../cards/WatchListCard.jsx";
 import CurrentPriceFeed from "../CurrentPriceFeed.jsx.jsx";
+import Swal from "sweetalert2";
 
 const Watchlist = () => {
   const [watchlist, setWatchlist] = useState([]);
 
-  useEffect(() => {
-    const fetchdata = async () => {
-      const response = await getWatchlist();
+  const fetchdata = async () => {
+    const response = await getWatchlist();
+    if (response != null && response.status == 200) {
+      setWatchlist(response.data);
+    }
+
+    const fetchChangedData = async () => {
+      const response = await getWatchlistChanged();
+
       if (response != null && response.status == 200) {
         setWatchlist(response.data);
       }
-
-      const fetchChangedData = async () => {
-        const response = await getWatchlistChanged();
-
-        if (response != null && response.status == 200) {
-          setWatchlist(response.data);
-        }
-      };
-
-      fetchChangedData();
     };
 
+    fetchChangedData();
+  };
+
+  useEffect(() => {
     fetchdata();
   }, []);
+
   return (
     <div>
       <div className="scrollbar-hide my-auto">
         {watchlist.length > 0 ? (
           watchlist.map((stock) => (
             <div key={stock.id}>
-              <WatchListCard {...stock} />
+              <WatchListCard {...stock} handleRefresh={fetchdata} />
             </div>
           ))
         ) : (

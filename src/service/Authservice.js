@@ -2,7 +2,7 @@ import axios from "axios";
 import axiosSkaarl from "../utils/api";
 
 const authorise = async () => {
-  const res = null;
+  let res = null;
   const broker = localStorage.getItem("broker");
   if (broker != null && broker === "upstox") {
     res = await axios.post(

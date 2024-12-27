@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import Watchlist from "./Watchlist";
-import { search } from "../../../service/SearchService";
 import SearchList from "./SearchList";
 import { RxCross2 } from "react-icons/rx";
 
