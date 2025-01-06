@@ -9,7 +9,7 @@ const CurrentPriceFeed = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const socket = new SockJS("http://localhost:8083/ms-skaarl/ws/");
+    const socket = new SockJS("http://localhost:8765/MS-SKAARL-TRADE/ws/");
     const stompClient = Stomp.over(socket);
     if (authorise()) {
       const headers = {

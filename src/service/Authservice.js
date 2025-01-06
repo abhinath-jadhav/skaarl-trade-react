@@ -6,14 +6,17 @@ const authorise = async () => {
   const broker = localStorage.getItem("broker");
   if (broker != null && broker === "upstox") {
     res = await axios.post(
-      "http://localhost:8083/api/v1/auth/upstox/authorise",
+      "http://localhost:8765/MS-SKAARL-TRADE//api/v1/auth/upstox/authorise",
       {},
       {
         withCredentials: true,
       }
     );
   } else if (broker === "fivePaisa") {
-    res = await axios.post("http://localhost:8083/api/v1/auth/authorise", {});
+    res = await axios.post(
+      "http://localhost:8765/MS-SKAARL-TRADE/api/v1/auth/authorise",
+      {}
+    );
   }
   if (res != null && res.status == 200) {
     return await res.data;

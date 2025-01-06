@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const axiosSkaarl = axios.create({
-  baseURL: "http://localhost:8083/api/v1",
+  baseURL: "http://localhost:8765/MS-SKAARL-TRADE/api/v1",
+  withCredentials: true,
 });
 
 axiosSkaarl.interceptors.response.use(

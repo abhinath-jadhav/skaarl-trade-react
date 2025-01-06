@@ -3,10 +3,10 @@ import UpstoxLogin from "../Components/login/UpstoxLogin";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 const Login = () => {
   const handleGithubLogin = () => {
-    window.location.href = "http://localhost:8083/oauth2/authorization/github";
+    window.location.href = "http://localhost:8765/oauth2/authorization/github";
   };
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:8083/oauth2/authorization/google";
+    window.location.href = "http://localhost:8765/oauth2/authorization/google";
   };
   return (
     <div className="flex flex-col gap-4 justify-center items-center">

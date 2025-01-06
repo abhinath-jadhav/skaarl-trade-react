@@ -45,9 +45,13 @@ const WatchListCard = ({
   }, [data, socketStockData, pos, price, currentPrice]);
 
   const handleOrder = (action) => {
-    setShow(false);
     setAction(action);
     setIsModalOpen(true);
+  };
+
+  const handleModalState = (data) => {
+    setShow(false);
+    setIsModalOpen(data);
   };
 
   return (
@@ -69,7 +73,7 @@ const WatchListCard = ({
         </p>
       </div>
       <div className="w-1/4 text-right gap-1">
-        {show ? (
+        {show && !isModalOpen ? (
           <div className="absolute top-1/4  right-2 bg-white p-1 px-2 border-red-500 dark:bg-black">
             <HandleUserChoice
               instrumentKeyUpStox={instrumentKeyUpStox}
@@ -96,7 +100,7 @@ const WatchListCard = ({
       {isModalOpen && (
         <OrderModal
           symbol={symbol}
-          setIsModalOpen={setIsModalOpen}
+          setIsModalOpen={handleModalState}
           type={action}
           price={230}
           stoploss={230 * 0.05}

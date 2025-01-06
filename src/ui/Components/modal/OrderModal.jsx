@@ -1,7 +1,6 @@
 import { placeOrder } from "../../../service/OrderService";
 import React, { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import { useSelector } from "react-redux";
 import { IoToggleSharp } from "react-icons/io5";
 
 const OrderModal = ({ symbol, setIsModalOpen, type, price, stoploss }) => {
@@ -33,10 +32,10 @@ const OrderModal = ({ symbol, setIsModalOpen, type, price, stoploss }) => {
     <>
       <div
         id="default-modal"
-        className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden w-full h-full"
+        className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden w-full h-full bg-black bg-opacity-40"
       >
-        <div className="relative p-4 w-full max-w-lg max-h-full text-black">
-          <div className="relative bg-white border border-gray-600 rounded-sm shadow dark:bg-gray-700">
+        <div className="relative p-4 w-full max-w-lg max-h-full text-black b">
+          <div className="relative bg-white border shadow-lg border-gray-600 rounded-sm dark:bg-gray-700">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {symbol}
@@ -67,7 +66,9 @@ const OrderModal = ({ symbol, setIsModalOpen, type, price, stoploss }) => {
                 <button
                   type="button"
                   className="text-gray-400 bg-transparent  hover:text-gray-900 rounded-sm text-sm w-9 h-9 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={() => {
+                    setIsModalOpen(false);
+                  }}
                 >
                   <IoMdClose size={25} />
                 </button>
@@ -136,6 +137,7 @@ const OrderModal = ({ symbol, setIsModalOpen, type, price, stoploss }) => {
               <button
                 onClick={() => {
                   placeOrder(formData);
+
                   setIsModalOpen(false);
                 }}
                 type="button"
