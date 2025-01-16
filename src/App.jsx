@@ -1,6 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { Home, Layout, Login, Profile, User } from "./ui/pages";
+import {
+  Home,
+  Layout,
+  Login,
+  Profile,
+  User,
+  Orders,
+  Portfolio,
+  FivePaisaLogin,
+} from "./ui/pages";
+import OtpForm from "./ui/pages/OtpForm";
 
 function App() {
   return (
@@ -10,9 +20,11 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/five-paisa-login" element={<FivePaisaLogin />} />
+            <Route path="/test" element={<OtpForm />} />
             <Route path="/user" element={<User />}>
-              <Route path="portfolio" element={<Login />} />
-              <Route path="orders" element={<Login />} />
+              <Route path="portfolio" element={<Portfolio />} />
+              <Route path="orders" element={<Orders />} />
               <Route path="profile" element={<Profile />} />
             </Route>
           </Route>

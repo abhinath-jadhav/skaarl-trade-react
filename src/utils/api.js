@@ -1,7 +1,8 @@
 import axios from "axios";
+import { baseUrl } from "./config";
 
 const axiosSkaarl = axios.create({
-  baseURL: "http://localhost:8765/MS-SKAARL-TRADE/api/v1",
+  baseURL: baseUrl,
   withCredentials: true,
 });
 
@@ -10,16 +11,16 @@ axiosSkaarl.interceptors.response.use(
   (error) => {
     if (error.response) {
       if (error.response.status === 401) {
-        alert("Unauthorized! Please log in again.");
+        console.log("Unauthorized! Please log in again.");
       } else if (error.response.status === 404) {
-        alert("API not found.");
+        console.log("API not found.");
       } else {
-        alert("An unexpected error occurred.");
+        console.log("An unexpected error occurred.");
       }
     } else if (error.request) {
-      alert("Network error. Please check your connection.");
+      console.log("Network error. Please check your connection.");
     } else {
-      alert("Something went wrong!");
+      console.log("Something went wrong!");
     }
     return null;
   }

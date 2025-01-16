@@ -11,7 +11,7 @@ const Login = () => {
   return (
     <div className="flex flex-col gap-4 justify-center items-center">
       <div className="flex gap-4 justify-center items-center">
-        <UpstoxLogin />
+        {/* <UpstoxLogin /> */}
         <button onClick={handleGithubLogin}>
           <FaGithub size={42} />
         </button>

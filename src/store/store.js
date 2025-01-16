@@ -3,6 +3,7 @@ import stockSlice from "./stockSlice";
 import themeSlice from "./themeSlice";
 import currentPriceSlice from "./currentPriceSlice";
 import safeOrderSlice from "./safeOrderSlice";
+import authSlice from "./authSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     themeSlice,
     currentPriceSlice,
     safeOrderSlice,
+    authSlice,
   },
 });

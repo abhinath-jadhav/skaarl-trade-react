@@ -6,7 +6,7 @@ import { IoToggleSharp } from "react-icons/io5";
 const OrderModal = ({ symbol, setIsModalOpen, type, price, stoploss }) => {
   const [action, setAction] = useState("");
   const [formData, setFormData] = useState({
-    action: type,
+    orderType: type,
     symbol: symbol,
     price: price,
     stoploss: stoploss,

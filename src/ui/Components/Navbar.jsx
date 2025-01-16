@@ -1,27 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ThemeToggle from "./ThmeToggle";
 import logo from "../../assets/logo.png";
 import { useEffect, useState } from "react";
 import { authorise } from "../../service/Authservice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateAuth } from "../../store/authSlice";
 
-const Navbar = () => {
-  const [user, setUser] = useState(null);
+const Navbar = ({ user }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const userData = await authorise();
-
-      if (userData) {
-        setUser(userData);
-      } else {
-        setUser(null);
-      }
-    };
-
-    fetchUser();
-  }, []);
+  useSelector((state) => state.authSlice);
 
   return (
     <div className="h-full">
@@ -68,7 +57,7 @@ const Navbar = () => {
             <div className="flex items-center gap-5">
               {user ? (
                 <div>
-                  <Link to={"/profile"}>
+                  <Link to={"/user/profile"}>
                     {user.avatar ? (
                       <img
                         className="h-[40px] rounded-full"
@@ -77,7 +66,7 @@ const Navbar = () => {
                         referrerPolicy="no-referrer"
                       />
                     ) : (
-                      <p>{user.name}</p>
+                      <p>{user}</p>
                     )}
                   </Link>
                 </div>
