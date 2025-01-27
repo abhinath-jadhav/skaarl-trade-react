@@ -5,14 +5,9 @@ import { baseUrl } from "../utils/config";
 const authorise = async () => {
   let res = null;
   const broker = localStorage.getItem("broker");
+
   if (broker != null && broker === "upstox") {
-    res = await axios.post(
-      baseUrl + "/auth/upstox/authorise",
-      {},
-      {
-        withCredentials: true,
-      }
-    );
+    res = await axios.post("/api/v1/auth/upstox/authorise", {});
   } else if (broker === "fivePaisa") {
     res = await axios.get(baseUrl + "/auth/fivepaisa/margin", {});
   }
@@ -41,5 +36,13 @@ const fivePaisaOtpLogin = async (otp) => {
   }
   return null;
 };
+const userLogout = async () => {
+  const response = await axiosSkaarl.get("/auth/fivepaisa/logout");
 
-export { saveUserInfo, authorise, fivePaisaOtpLogin };
+  if (response.status == 200) {
+    return response.data;
+  }
+  return null;
+};
+
+export { saveUserInfo, authorise, fivePaisaOtpLogin, userLogout };

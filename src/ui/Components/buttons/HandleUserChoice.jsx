@@ -45,7 +45,7 @@ const HandleUserChoice = ({
   const renderChart = (instrumentKeyUpStox) => {
     window.scrollTo(0, 0, { behavior: "smooth" });
     dispatch(changeStock(instrumentKeyUpStox));
-    navigate(`/`);
+    navigate(`/chart`);
   };
 
   const watchlistHandler = async (sym, opr) => {

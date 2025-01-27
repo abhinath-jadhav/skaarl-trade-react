@@ -7,10 +7,13 @@ import {
   Profile,
   User,
   Orders,
-  Portfolio,
+  Tradebook,
   FivePaisaLogin,
+  ChartPage,
+  Portfolio,
 } from "./ui/pages";
 import OtpForm from "./ui/pages/OtpForm";
+import { HomeSideBar } from "./ui/Components";
 
 function App() {
   return (
@@ -19,10 +22,13 @@ function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/m/dashboard" element={<HomeSideBar />} />
+            <Route path="/chart" element={<ChartPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/five-paisa-login" element={<FivePaisaLogin />} />
             <Route path="/test" element={<OtpForm />} />
             <Route path="/user" element={<User />}>
+              <Route path="tradebook" element={<Tradebook />} />
               <Route path="portfolio" element={<Portfolio />} />
               <Route path="orders" element={<Orders />} />
               <Route path="profile" element={<Profile />} />

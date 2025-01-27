@@ -5,4 +5,12 @@ const placeOrder = async (data) => {
   console.log(response);
 };
 
-export { placeOrder };
+const getOrderbook = async () => {
+  const response = await axiosSkaarl.get("/fivepaisa/order");
+  if (response.status == 200) {
+    return response.data;
+  }
+  return null;
+};
+
+export { placeOrder, getOrderbook };

@@ -1,10 +1,18 @@
 import React, { useState, useRef } from "react";
 import { fivePaisaOtpLogin } from "../../service/Authservice";
+import { useDispatch } from "react-redux";
+import { updateAuth } from "../../store/authSlice";
+import { useNavigate } from "react-router-dom";
+import { Loader } from "../Components";
+import Swal from "sweetalert2";
 
 const FivePaisaLogin = () => {
   const inputRefs = useRef([]); // References for input fields
   const [otp, setOtp] = useState(new Array(6).fill("")); // Stores OTP values
   const [currentIndex, setCurrentIndex] = useState(0); // Tracks the active input field
+
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInput = (e, index) => {
     const value = e.target.value;
@@ -42,15 +50,32 @@ const FivePaisaLogin = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     console.log(otp.join(""));
 
-    fivePaisaOtpLogin(otp.join(""));
-  };
+    const response = await fivePaisaOtpLogin(otp.join(""));
 
+    if (response.status === 200) {
+      console.log(response);
+      dispatch(updateAuth(true));
+      window.location.href = "http://localhost:5173";
+    } else {
+      setIsLoading(false);
+      setOtp(new Array(6).fill(""));
+      Swal.fire({
+        icon: "warning",
+        title: "Wrong TOTP",
+        text: "Please enter correct TOTP",
+        titleText: "Wrong TOTP",
+        confirmButtonText: "OK",
+      });
+    }
+  };
+  if (isLoading) return <Loader />;
   return (
-    <div className="flex flex-col items-center justify-center h-2/3">
+    <div className="flex flex-col items-center justify-center h-2/3 w-4/5 md:w-full">
       <header className="mb-8 text-center">
         <h1 className="text-2xl font-bold mb-1">Mobile Phone Verification</h1>
         <p className="text-[15px] text-slate-500">
@@ -59,12 +84,12 @@ const FivePaisaLogin = () => {
         </p>
       </header>
       <form id="otp-form" onSubmit={handleSubmit}>
-        <div className="flex items-center justify-center gap-3">
+        <div className="flex items-center justify-center gap-2 md:gap-3">
           {otp.map((_, index) => (
             <input
               key={index}
               type="text"
-              className={`w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-white border "border-indigo-400 focus:ring-indigo-100 border-transparent hover:border-slate-300 appearance-none rounded p-4 outline-none`}
+              className={`w-10 h-10 p-2 md:p-4 md:w-14 md:h-14 md:text-2xl md:font-extrabold text-center text-slate-900 bg-white border "border-indigo-400 focus:ring-indigo-100 border-transparent hover:border-slate-300 appearance-none rounded outline-none`}
               maxLength="1"
               value={otp[index]}
               ref={(el) => (inputRefs.current[index] = el)}

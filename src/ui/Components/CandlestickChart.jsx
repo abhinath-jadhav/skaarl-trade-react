@@ -147,54 +147,60 @@ const CandlestickChart = ({ candles, name }) => {
   return (
     <div className="w-full h-full mx-auto flex justify-center">
       {/* Display the open, high, low, and close values at the top */}
-      <div className="w-full h-full">
+      <div className="flex flex-col items-center md:items-start  md:justify-center w-full h-full">
         <div
-          className={`mb-2 font-medium text-sm pl-4 w-fit py-2 bg-white dark:bg-black `}
+          className={`mb-2 font-medium text-xs md:text-sm w-fit sm:py-2 bg-white dark:bg-black `}
         >
           {hoveredCandle && (
             <div
-              className={`flex justify-center items-center gap-2 ${
+              className={`flex flex-col md:flex-row justify-center items-center md:gap-2 ${
                 hoveredCandle.open >= hoveredCandle.close
                   ? "text-red-600"
                   : "text-green-700"
               }`}
             >
-              <p
-                className={`${
-                  theme ? "text-white" : "text-black"
-                } font-semibold text-base`}
-              >
-                {name}
-              </p>
-              <p>
-                <span className="dark:text-white text-black">O </span>
-                {hoveredCandle.open}
-              </p>
-              <p>
-                <span className="dark:text-white text-black">H </span>
-                {hoveredCandle.high}
-              </p>
-              <p>
-                <span className="dark:text-white text-black">L </span>
-                {hoveredCandle.low}
-              </p>
-              <p>
-                <span className="dark:text-white text-black">C </span>
-                {hoveredCandle.close}
-              </p>
+              <div>
+                <p
+                  className={`${
+                    theme ? "text-white" : "text-black"
+                  } md:font-semibold md:text-base text-sm`}
+                >
+                  {name}
+                </p>
+              </div>
+              <div className="flex gap-2">
+                <p>
+                  <span className="dark:text-white text-black">O </span>
+                  {hoveredCandle.open}
+                </p>
+                <p>
+                  <span className="dark:text-white text-black">H </span>
+                  {hoveredCandle.high}
+                </p>
+                <p>
+                  <span className="dark:text-white text-black">L </span>
+                  {hoveredCandle.low}
+                </p>
+                <p>
+                  <span className="dark:text-white text-black">C </span>
+                  {hoveredCandle.close}
+                </p>
 
-              <p
-                className={`${
-                  hoveredCandle.open >= hoveredCandle.close
-                    ? "text-red-600"
-                    : "text-green-700"
-                }`}
-              >
-                {Math.abs(
-                  ((hoveredCandle.open - hoveredCandle.close) / 100).toFixed(2)
-                )}
-                %
-              </p>
+                <p
+                  className={`${
+                    hoveredCandle.open >= hoveredCandle.close
+                      ? "text-red-600"
+                      : "text-green-700"
+                  }`}
+                >
+                  {Math.abs(
+                    ((hoveredCandle.open - hoveredCandle.close) / 100).toFixed(
+                      2
+                    )
+                  )}
+                  %
+                </p>
+              </div>
             </div>
           )}
         </div>

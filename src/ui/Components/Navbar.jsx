@@ -1,14 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import ThemeToggle from "./ThmeToggle";
 import logo from "../../assets/logo.png";
-import { useEffect, useState } from "react";
-import { authorise } from "../../service/Authservice";
-import { useDispatch, useSelector } from "react-redux";
-import { updateAuth } from "../../store/authSlice";
+import { userLogout } from "../../service/Authservice";
+import { useSelector } from "react-redux";
 
 const Navbar = ({ user }) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const handleLogout = async () => {
+    await userLogout();
+    window.location.href = "http://localhost:5173";
+  };
 
   useSelector((state) => state.authSlice);
 
@@ -41,35 +41,45 @@ const Navbar = ({ user }) => {
               <img className="h-[50px] md:h-[60px]" src={logo} alt="" />
             </Link>
           </div>
-          <div className="w-[73%] flex items-center justify-between gap-5">
-            <div className="hidden md:flex gap-2">
+          <div className="w-[73%] flex items-center justify-end md:justify-between gap-5">
+            <div className="hidden md:flex gap-2 items-center">
               <div>
                 <Link to={"/"}>Dashboard</Link>
               </div>
               <div>
-                <Link to={"/user/portfolio"}>Portfolio</Link>
+                <Link to={"/user/orders"}>Orders</Link>
               </div>
               <div>
-                <Link to={"/user/orders"}>Orders</Link>
+                <Link to={"/user/tradebook"}>Tradebook</Link>
               </div>
             </div>
 
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-3">
               {user ? (
-                <div>
-                  <Link to={"/user/profile"}>
-                    {user.avatar ? (
-                      <img
-                        className="h-[40px] rounded-full"
-                        src={user.avatar}
-                        alt="Profile"
-                        referrerPolicy="no-referrer"
-                      />
-                    ) : (
-                      <p>{user}</p>
-                    )}
-                  </Link>
-                </div>
+                <>
+                  <div>
+                    <Link to={"/user/profile"}>
+                      {user.avatar ? (
+                        <img
+                          className="h-[40px] rounded-full"
+                          src={user.avatar}
+                          alt="Profile"
+                          referrerPolicy="no-referrer"
+                        />
+                      ) : (
+                        <p>{user}</p>
+                      )}
+                    </Link>
+                  </div>
+                  <div>
+                    <button
+                      className="rounded-md px-2 py-1 mr-2 bg-red-500"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                </>
               ) : (
                 <Link to={"/login"}>Login</Link>
               )}

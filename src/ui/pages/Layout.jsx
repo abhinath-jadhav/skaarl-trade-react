@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Navbar, Footer, HomeSideBar, Menus } from "../Components";
+import { Navbar, Footer, HomeSideBar, Menus, Loader } from "../Components";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { authorise } from "../../service/Authservice";
@@ -12,16 +12,20 @@ const Layout = () => {
   const [user, setUser] = useState(null);
   const dispatch = useDispatch();
   const [page, setPage] = useState("FIVE-PAISA");
+  const [isLoading, setIsLoading] = useState(true);
 
   const renderPage = (page) => {
     switch (page) {
       case "OUTLET":
         return (
           <>
-            <div className="h-full w-full md:w-[27%] bg-slate-100 dark:bg-[#151e28]">
+            <div className="h-full hidden md:block w-full md:w-[27%] bg-slate-100 dark:bg-[#151e28]">
               <HomeSideBar />
             </div>
             <div className="h-full hidden md:block w-[73%] bg-slate-100 dark:bg-[#151e28]">
+              <Outlet />
+            </div>
+            <div className="h-full md:hidden w-full bg-slate-100 dark:bg-[#151e28]">
               <Outlet />
             </div>
           </>
@@ -39,8 +43,7 @@ const Layout = () => {
     localStorage.setItem("broker", "fivePaisa");
     const fetchUser = async () => {
       const response = await authorise();
-      console.log("reload");
-
+      setIsLoading(false);
       if (response && response.status == 200) {
         setUser(response.data.clientCode);
         dispatch(updateAuth(true));
@@ -50,7 +53,7 @@ const Layout = () => {
         setPage("FIVE-PAISA");
       } else {
         dispatch(updateAuth(false));
-        setPage("FIVE-PAISA");
+        setPage("LOGIN");
       }
     };
 
@@ -63,7 +66,11 @@ const Layout = () => {
       </div>
 
       <div className="h-[90vh] w-full">
-        <div className="h-full flex justify-center"> {renderPage(page)}</div>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <div className="h-full flex justify-center"> {renderPage(page)}</div>
+        )}
       </div>
 
       <div className="fixed md:hidden bottom-0 w-full">

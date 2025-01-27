@@ -19,4 +19,13 @@ export default defineConfig({
     outDir: "dist",
   },
   publicDir: "public",
+  // server: {
+  //   proxy: {
+  //     "/api": {
+  //       target: "http://localhost:8765", // Your backend URL
+  //       changeOrigin: true,
+  //       // rewrite: (path) => path.replace(/^\/api/, ""), // Optional: Remove '/api' prefix if needed
+  //     },
+  //   },
+  // },
 });

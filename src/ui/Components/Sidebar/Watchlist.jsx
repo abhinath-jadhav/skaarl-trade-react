@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 
 const Watchlist = () => {
   const [watchlist, setWatchlist] = useState([]);
+  const [hoveredId, setHoveredId] = useState(null);
 
   const fetchdata = async () => {
     const response = await getWatchlist();
@@ -31,13 +32,29 @@ const Watchlist = () => {
     fetchdata();
   }, []);
 
+  const handleMouseEnter = (id) => {
+    setHoveredId(id);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredId(null);
+  };
+
   return (
     <div>
       <div className="scrollbar-hide my-auto">
         {watchlist.length > 0 ? (
           watchlist.map((stock) => (
-            <div key={stock.id}>
-              <WatchListCard {...stock} handleRefresh={fetchdata} />
+            <div
+              key={stock.id}
+              onMouseEnter={() => handleMouseEnter(stock.id)}
+              onMouseLeave={handleMouseLeave}
+            >
+              <WatchListCard
+                {...stock}
+                handleRefresh={fetchdata}
+                show={hoveredId == stock.id}
+              />
             </div>
           ))
         ) : (
