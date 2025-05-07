@@ -11,7 +11,7 @@ const Layout = () => {
   const isAuth = useSelector((state) => state.authSlice);
   const [user, setUser] = useState(null);
   const dispatch = useDispatch();
-  const [page, setPage] = useState("FIVE-PAISA");
+  const [page, setPage] = useState("LOGIN");
   const [isLoading, setIsLoading] = useState(true);
 
   const renderPage = (page) => {
@@ -31,7 +31,7 @@ const Layout = () => {
           </>
         );
       case "LOGIN":
-        return <Login />;
+        return <Login setPage={setPage} />;
       case "FIVE-PAISA":
         return <FivePaisaLogin />;
       default:
@@ -58,7 +58,7 @@ const Layout = () => {
     };
 
     fetchUser();
-  }, []);
+  }, [page]);
   return (
     <div className="">
       <div className="sticky top-0 z-50 h-[10vh]">

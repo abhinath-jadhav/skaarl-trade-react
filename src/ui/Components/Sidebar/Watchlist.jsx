@@ -61,7 +61,7 @@ const Watchlist = () => {
           <p>No items in the watchlist.</p>
         )}
       </div>
-      {localStorage.getItem("access_token") && <CurrentPriceFeed />}
+      {<CurrentPriceFeed />}
     </div>
   );
 };

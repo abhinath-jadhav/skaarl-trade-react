@@ -27,7 +27,7 @@
     "sweetalert2": "^11.15.2",
     "tailwind-scrollbar-hide": "^1.1.7",
     "web-vitals": "^4.2.4",
-    "yup": "^1.4.0"
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

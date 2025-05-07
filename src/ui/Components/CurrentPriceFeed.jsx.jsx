@@ -13,7 +13,7 @@ const CurrentPriceFeed = () => {
     const stompClient = Stomp.over(socket);
     if (authorise()) {
       const headers = {
-        token: localStorage.getItem("access_token"),
+        LOCAL_JWT: localStorage.getItem("LOCAL_JWT"),
       };
       stompClient.connect(headers, () => {
         stompClient.subscribe("/topic/public/currentPrice", (message) => {

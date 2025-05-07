@@ -7,10 +7,18 @@ const authorise = async () => {
   const broker = localStorage.getItem("broker");
 
   if (broker != null && broker === "upstox") {
-    res = await axios.post("/api/v1/auth/upstox/authorise", {});
+    res = await axiosSkaarl.post("/api/v1/auth/upstox/authorise", {});
   } else if (broker === "fivePaisa") {
-    res = await axios.get(baseUrl + "/auth/fivepaisa/margin", {});
+    res = await axiosSkaarl.get(baseUrl + "/auth/fivepaisa/margin", {});
   }
+  if (res != null && res.status == 200) {
+    return await res.data;
+  }
+  return null;
+};
+
+const signin = async (form) => {
+  let res = await axios.post(baseUrl + "/auth/sign-in", form);
   if (res != null && res.status == 200) {
     return await res.data;
   }
@@ -37,6 +45,7 @@ const fivePaisaOtpLogin = async (otp) => {
   return null;
 };
 const userLogout = async () => {
+  localStorage.removeItem("LOCAL_JWT")
   const response = await axiosSkaarl.get("/auth/fivepaisa/logout");
 
   if (response.status == 200) {
@@ -45,4 +54,4 @@ const userLogout = async () => {
   return null;
 };
 
-export { saveUserInfo, authorise, fivePaisaOtpLogin, userLogout };
+export { saveUserInfo, authorise, fivePaisaOtpLogin, userLogout, signin};

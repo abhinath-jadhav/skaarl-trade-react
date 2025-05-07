@@ -2,9 +2,22 @@ import axios from "axios";
 import { baseUrl } from "./config";
 
 const axiosSkaarl = axios.create({
-  baseURL: baseUrl,
-  withCredentials: true,
+  baseURL: baseUrl
 });
+
+axiosSkaarl.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("LOCAL_JWT"); 
+    if (token) {
+      config.headers["LOCAL_JWT"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    console.error(error);
+    return null;
+  }
+);
 
 axiosSkaarl.interceptors.response.use(
   (response) => response,
